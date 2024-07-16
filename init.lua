@@ -807,6 +807,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>vi', require('nvim-msvc').index_msvc_files, { desc = 'MSVC: MS[V]C [I]ndex files' })
       vim.keymap.set('n', '<leader>vp', require('nvim-msvc').set_vcxproj, { desc = 'MSVC: MS[V]C [P]roject Select' })
       vim.keymap.set('n', '<leader>vc', require('nvim-msvc').generate_proj_compile_commands, { desc = 'MSVC: MS[V]C [C]ompile Commands' })
+      vim.keymap.set('n', '<leader>sp', require('nvim-msvc').select_project_file, { desc = '[S]earch: [P]roject Files' })
     end,
   },
 }, {
