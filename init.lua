@@ -91,7 +91,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -215,7 +215,7 @@ vim.opt.rtp:prepend(lazypath)
 --    :Lazy update
 --
 -- NOTE: Here is where you install your plugins.
-require('lazy').setup({
+require('lazy').setup {
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
 
@@ -705,25 +705,11 @@ require('lazy').setup({
     end,
   },
 
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+  {
     'folke/tokyonight.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
-      require('tokyonight').setup {
-        style = 'night',
-        on_colors = function(colors)
-          colors.comment = '#66cf89'
-        end,
-      }
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
       vim.cmd.colorscheme 'tokyonight-night'
-
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
     end,
@@ -749,6 +735,8 @@ require('lazy').setup({
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
+
+      require('mini.icons').setup()
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
@@ -800,37 +788,27 @@ require('lazy').setup({
     end,
   },
   {
-    'VolatileAcorn/nvim-msvc',
+    'stevearc/oil.nvim',
+    ---@module 'oil'
+    ---@type oil.SetupOpts
     opts = {},
     config = function(_, opts)
-      require('nvim-msvc').setup(opts)
-      vim.keymap.set('n', '<leader>vi', require('nvim-msvc').index_msvc_files, { desc = 'MSVC: MS[V]C [I]ndex files' })
-      vim.keymap.set('n', '<leader>vp', require('nvim-msvc').set_vcxproj, { desc = 'MSVC: MS[V]C [P]roject Select' })
-      vim.keymap.set('n', '<leader>vc', require('nvim-msvc').generate_proj_compile_commands, { desc = 'MSVC: MS[V]C [C]ompile Commands' })
-      vim.keymap.set('n', '<leader>sp', require('nvim-msvc').select_project_file, { desc = '[S]earch: [P]roject Files' })
+      require('oil').setup(opts)
+      vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Oil: Open Parent Directory of open buffer' })
     end,
+    -- Optional dependencies
+    dependencies = { { 'echasnovski/mini.icons', opts = {} } },
+    -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
   },
-}, {
-  ui = {
-    -- If you are using a Nerd Font: set icons to an empty table which will use the
-    -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
-    icons = vim.g.have_nerd_font and {} or {
-      cmd = '⌘',
-      config = '🛠',
-      event = '📅',
-      ft = '📂',
-      init = '⚙',
-      keys = '🗝',
-      plugin = '🔌',
-      runtime = '💻',
-      require = '🌙',
-      source = '📄',
-      start = '🚀',
-      task = '📌',
-      lazy = '💤 ',
-    },
-  },
-})
-
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
+  -- {
+  --   'VolatileAcorn/nvim-msvc',
+  --   opts = {},
+  --   config = function(_, opts)
+  --     require('nvim-msvc').setup(opts)
+  --     vim.keymap.set('n', '<leader>vi', require('nvim-msvc').index_msvc_files, { desc = 'MSVC: MS[V]C [I]ndex files' })
+  --     vim.keymap.set('n', '<leader>vp', require('nvim-msvc').set_vcxproj, { desc = 'MSVC: MS[V]C [P]roject Select' })
+  --     vim.keymap.set('n', '<leader>vc', require('nvim-msvc').generate_proj_compile_commands, { desc = 'MSVC: MS[V]C [C]ompile Commands' })
+  --     vim.keymap.set('n', '<leader>sp', require('nvim-msvc').select_project_file, { desc = '[S]earch: [P]roject Files' })
+  --   end,
+  -- },
+}
