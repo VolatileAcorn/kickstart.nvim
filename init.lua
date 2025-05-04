@@ -802,6 +802,15 @@ require('lazy').setup {
     dependencies = { { 'echasnovski/mini.icons', opts = {} } },
     -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
   },
+  {
+    dir = '~/AppData/Local/nvim/lua/vs_selector',
+    config = function()
+      require('vs_selector').setup {
+        -- Add any future options here, e.g.:
+        -- some_option = true,
+      }
+    end,
+  },
   -- {
   --   'VolatileAcorn/nvim-msvc',
   --   opts = {},
