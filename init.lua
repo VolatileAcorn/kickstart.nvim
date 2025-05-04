@@ -806,8 +806,7 @@ require('lazy').setup {
     dir = '~/AppData/Local/nvim/lua/vs_selector',
     config = function()
       require('vs_selector').setup {
-        -- Add any future options here, e.g.:
-        -- some_option = true,
+        clang_power_tools_script_path = 'C:/Users/Tom/AppData/Local/Microsoft/VisualStudio/17.0_c1faa625/Extensions/02ppwyle.gy3/Tooling/v1/clang-build.ps1',
       }
     end,
   },
